@@ -6,15 +6,43 @@ public class Dog {
     private String breed;
     private int age;
     private int weight;
+    private int dogId;
     private double tailLength;
     public Dog(String name, String breedName, int age, int weight){
-
         this.name = name;
         breed = breedName;
         this.weight = weight;
         tailLength = getTailLength();
         this.age = age;
 
+    }
+//    public Dog(){
+//        name = "Name";
+//        breed = "Breed";
+//        age = 1;
+//        weight = 1;
+//
+//
+//
+//    }
+    private static void dogTailSorter(Dog[] a){
+        for (int i = 0; i < a.length - 1; i++){
+
+            int indexOfMin = i;
+
+            for (int j = 1 + 1; j < a.length; j++ ){
+
+                if(a[indexOfMin].getTailLength() > a[j].getTailLength()){
+
+                    indexOfMin = j;
+                }
+            }
+
+            Dog temp = a[indexOfMin];
+            a[indexOfMin] = a[i];
+            a[i] = temp;
+
+        }
     }
     public int increaseAge(int a){
         if (a < 0){
@@ -94,6 +122,7 @@ public class Dog {
 
         return tailLength;
     }
+
     public String toString() {
         String tailLength = Double.toString(getTailLength());
         String age = Integer.toString(getAge());
