@@ -1,5 +1,4 @@
 //Björn Moderatho Winther bjmo4976
-
 public class Dog {
     private static final double DACHSHUND_TAIL = 3.7;
     private String name;
@@ -7,6 +6,7 @@ public class Dog {
     private int age;
     private int weight;
     private int dogId;
+    private boolean isOwned;
     private double tailLength;
     public Dog(String name, String breedName, int age, int weight){
         this.name = name;
@@ -15,16 +15,8 @@ public class Dog {
         tailLength = getTailLength();
         this.age = age;
 
+
     }
-//    public Dog(){
-//        name = "Name";
-//        breed = "Breed";
-//        age = 1;
-//        weight = 1;
-//
-//
-//
-//    }
     private static void dogTailSorter(Dog[] a){
         for (int i = 0; i < a.length - 1; i++){
 
@@ -132,5 +124,16 @@ public class Dog {
         return firstString + secondString;
 
     }
-
+    public boolean setOwner(Owner owner){
+        return isOwned;
+    }
+    public Owner getOwner(){
+        return new Owner("this.owner");
+    }
+//    private boolean getOwnershipStatus(Owner owner){
+//        return isOwned;
+//    }
+//    private boolean setOwnershipStatus(Owner owner){
+//        return isOwned;
+//    }
 }

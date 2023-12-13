@@ -104,7 +104,6 @@ public class DogCollection {
         for (Dog dog : dogRegistry) {
             dogArrayList.add(dog);
         }
-
         return dogArrayList;
     }
 

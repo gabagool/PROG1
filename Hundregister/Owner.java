@@ -1,9 +1,11 @@
 // Björn Moderatho Winther bjmo4976
+import java.util.ArrayList;
 public class Owner implements Comparable<Owner> {
     private String ownerName;
     private String firstName;
     private String lastName;
-
+    private Dog[] dogsOwned = new Dog[0];
+    private int length;
     public Owner(String name) {
         ownerName = name;
         lastName = getLastName();
@@ -25,7 +27,6 @@ public class Owner implements Comparable<Owner> {
         charArray[0] = Character.toUpperCase(charArray[0]);
         name = String.valueOf(charArray);
         charArray[0] = Character.toUpperCase(charArray[0]);
-
         for (int i = 0; i < name.length(); i++) {
             if (name.charAt(i) == '-') {
                 charArray[i + 1] = Character.toUpperCase(charArray[i + 1]);
@@ -52,12 +53,10 @@ public class Owner implements Comparable<Owner> {
         for (int i = 0; i < lastName.length(); i++) {
             if (lastName.charAt(i) == ' ') {
                 lastName = lastName.substring(i+1);
-
             }
         }
         return lastName;
     }
-
     private boolean doubleNameCheck(String name) {
         boolean doubleName = false;
         for (int i = 0; i < name.length(); i++) {
@@ -68,7 +67,24 @@ public class Owner implements Comparable<Owner> {
         return doubleName;
     }
     public String toString () {
-
         return ownerName;
+    }
+    public boolean addDog(Dog dog){
+        if (length == 0){
+            dogsOwned = new Dog[] {dog};
+            length++;
+        }else if(!hasOwner(dog)){
+        }
+        return false;
+    }
+    public boolean removeDog(Dog dog){
+
+        return true;
+    }
+    public ArrayList<Dog> getDogs(){
+        return new ArrayList<>();
+    }
+    private boolean hasOwner(Dog dog){
+        return false;
     }
 }
