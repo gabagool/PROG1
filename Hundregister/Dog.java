@@ -1,22 +1,25 @@
 //Björn Moderatho Winther bjmo4976
 public class Dog {
     private static final double DACHSHUND_TAIL = 3.7;
-    private String name;
-    private String breed;
+    private  String name;
+    private  String breed;
     private int age;
-    private int weight;
+    private final int weight;
     private int dogId;
+
     private boolean isOwned;
     private double tailLength;
+    private String ownerToString;
+
     public Dog(String name, String breedName, int age, int weight){
         this.name = name;
         breed = breedName;
         this.weight = weight;
         tailLength = getTailLength();
         this.age = age;
-
-
+        owner = null;
     }
+    private Owner owner;
     private static void dogTailSorter(Dog[] a){
         for (int i = 0; i < a.length - 1; i++){
 
@@ -29,12 +32,20 @@ public class Dog {
                     indexOfMin = j;
                 }
             }
-
             Dog temp = a[indexOfMin];
             a[indexOfMin] = a[i];
             a[i] = temp;
-
         }
+    }
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", breed='" + breed + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", owner=" + ownerToString +
+                '}';
     }
     public int increaseAge(int a){
         if (a < 0){
@@ -114,26 +125,25 @@ public class Dog {
 
         return tailLength;
     }
-
-    public String toString() {
-        String tailLength = Double.toString(getTailLength());
-        String age = Integer.toString(getAge());
-        String weight = Integer.toString(getWeight());
-        String firstString = name + ", " + breed + ", " + age;
-        String secondString = ", " + weight + ", " + tailLength;
-        return firstString + secondString;
-
-    }
     public boolean setOwner(Owner owner){
-        return isOwned;
+        Owner temp;
+        if(this.owner != null){
+            if(owner == null){
+                this.owner.removeDog(this);
+                this.owner = null;
+                return true;
+            }
+        } else if (owner.getDogs().contains(this)) {
+            return false;
+        }
+        this.owner = owner;
+        return this.owner.addDog(this);
     }
     public Owner getOwner(){
-        return new Owner("this.owner");
+        Owner clone = new Owner("Hej");
+        ownerToString = clone.toString();
+        clone = this.owner;
+        return clone;
     }
-//    private boolean getOwnershipStatus(Owner owner){
-//        return isOwned;
-//    }
-//    private boolean setOwnershipStatus(Owner owner){
-//        return isOwned;
-//    }
 }
+                                    //ADD, REMOVE, SET
