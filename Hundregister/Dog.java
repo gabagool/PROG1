@@ -1,11 +1,14 @@
 //Björn Moderatho Winther bjmo4976
-public class Dog {
+interface Ownership {
+    boolean setOwner(Owner owner);
+}
+public class Dog implements Ownership {
     private static final double DACHSHUND_TAIL = 3.7;
     private  String name;
     private  String breed;
     private int age;
-    private final int weight;
     private int dogId;
+    private int weight;
 
     private boolean isOwned;
     private double tailLength;
@@ -44,7 +47,7 @@ public class Dog {
                 ", breed='" + breed + '\'' +
                 ", age=" + age +
                 ", weight=" + weight +
-                ", owner=" + ownerToString +
+                ", owner=" + owner.getName() +
                 '}';
     }
     public int increaseAge(int a){
@@ -125,14 +128,15 @@ public class Dog {
 
         return tailLength;
     }
-    public boolean setOwner(Owner owner){
+    @Override public boolean setOwner(Owner owner){
         Owner temp;
         if(this.owner != null){
-            if(owner == null){
+            if(owner == null) {
                 this.owner.removeDog(this);
                 this.owner = null;
                 return true;
             }
+            else return false;
         } else if (owner.getDogs().contains(this)) {
             return false;
         }
@@ -145,5 +149,14 @@ public class Dog {
         clone = this.owner;
         return clone;
     }
+
+    private boolean getValidSuperclass(Object object){
+        Class <?> superClass = object.getClass().getSuperclass();
+        boolean A = (superClass == Dog.class);
+        boolean B = (superClass == Owner.class);
+        boolean C = (superClass.isAssignableFrom(Dog.class));
+        boolean D = (superClass.isAssignableFrom(Owner.class));
+        
+        return A | B | C | D;
+    }
 }
-                                    //ADD, REMOVE, SET

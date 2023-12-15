@@ -4,7 +4,6 @@ import java.util.Comparator;
 public class DogCollection {
     private static Dog genericDog = new Dog("First", "Breed", 1, 2);
     private ArrayList<Dog> dogRegistry = new ArrayList<>();
-
     public boolean addDog(Dog dog) {
 //        if(!searchDogs(dogRegistry, dog).contains(dog)) { // Använder searchDogs
 //            dogRegistry.add(dog);
@@ -34,10 +33,11 @@ public class DogCollection {
         if (dogRegistry.size() == 0) {
             return false;
         } else if (!containsDog(dogName)) return false;
-        else {
+        else if (getDog(dogName).getOwner() != null) {
+            return false;
+        }
             dogRegistry.remove(getDogWithName(dogName));
             return true;
-        }
 
     }
 
@@ -47,12 +47,14 @@ public class DogCollection {
         } else if (!containsDog(dog)) return false;
         else if (!containsDog(dog.getName())) {
             return false;
-
+        } else if (dog.getOwner() != null) {
+            return false;
         } else {
             dogRegistry.remove(dog);
             return true;
         }
     }
+
 
     public boolean containsDog(String dogName) {
         for (Dog dog : dogRegistry) {

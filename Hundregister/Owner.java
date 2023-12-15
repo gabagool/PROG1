@@ -2,7 +2,10 @@
 
 import java.util.ArrayList;
 
-public class Owner implements Comparable<Owner> {
+public class Owner implements Comparable<Owner>{
+    private class Ownership{
+
+    }
 
     public Owner(String name) {
         ownerName = name;
@@ -116,17 +119,14 @@ public class Owner implements Comparable<Owner> {
         if(this.dogsRegistered.isEmpty()) return new ArrayList<>();
         return new ArrayList<>(dogsRegistered);
     }
+    private boolean getValidSuperclass(Object object){
+        Class <?> superClass = object.getClass().getSuperclass();
+        boolean A = (superClass == Dog.class);
+        boolean B = (superClass == Owner.class);
+        boolean C = (superClass.isAssignableFrom(Dog.class));
+        boolean D = (superClass.isAssignableFrom(Owner.class));
 
-//    private boolean hasOwner(Dog dog) {
-//        return false;
-//    }
+        return A | B | C | D;
+    }
 
-//    private boolean hasOwner(Dog dog) {
-////        if (dogOwnership.size() > 0) {
-////            for (int i = 0; i < dogOwnership.size(); i++) {
-////                if (dogOwnership.get(i) == dog) return true;
-////            }
-////        }
-//        return (dog.getOwner() != null);
-//    }
 }

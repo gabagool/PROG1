@@ -27,7 +27,10 @@ public class OwnerCollection {
     public boolean removeOwner(String ownerName) {
         if(length == 0){
             return false;
-        } else if (ownerRegistry.length == 1) {
+        }else if (getOwner(ownerName).getDogs().isEmpty()) {
+            return false;
+        }
+        else if (ownerRegistry.length == 1) {
             length--;
             ownerRegistry = new Owner[0];
             return true;
@@ -48,7 +51,8 @@ public class OwnerCollection {
     public boolean removeOwner(Owner owner) {
         if(length == 0){
             return false;
-        } else if (ownerRegistry.length == 1) {
+        } else if (!owner.getDogs().isEmpty()) return false;
+        else if (ownerRegistry.length == 1) {
             length--;
             ownerRegistry = new Owner[0];
             return true;
@@ -62,10 +66,12 @@ public class OwnerCollection {
             for(int i = 0; i < tempArray.length - 1; i++){
                 ownerRegistry[i] = tempArray[i];
             }
-            return true;
         }
+
         return false;
+
     }
+
 
     public boolean containsOwner(String ownerName) {
         if(ownerRegistry.length == 0) return false;
@@ -76,7 +82,6 @@ public class OwnerCollection {
         }
         return ownerRegistry[length - 1].getName().equalsIgnoreCase(ownerName);
     }
-
     public boolean containsOwner(Owner owner) {
         if(ownerRegistry.length > 0) {
             for (int i = 0; i < length; i++) {
@@ -137,5 +142,8 @@ public class OwnerCollection {
             indexOfNull++;
         }
         return ownerRegistry;
+    }
+    private boolean setOwner(){
+        return false;
     }
 }
