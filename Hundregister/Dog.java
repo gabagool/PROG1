@@ -1,19 +1,11 @@
 //Björn Moderatho Winther bjmo4976
-interface Ownership {
-    boolean setOwner(Owner owner);
-}
-public class Dog implements Ownership {
+public class Dog {
     private static final double DACHSHUND_TAIL = 3.7;
     private  String name;
     private  String breed;
     private int age;
-    private int dogId;
-    private int weight;
-
-    private boolean isOwned;
+    private final int weight;
     private double tailLength;
-    private String ownerToString;
-
     public Dog(String name, String breedName, int age, int weight){
         this.name = name;
         breed = breedName;
@@ -27,11 +19,9 @@ public class Dog implements Ownership {
         for (int i = 0; i < a.length - 1; i++){
 
             int indexOfMin = i;
-
             for (int j = 1 + 1; j < a.length; j++ ){
 
                 if(a[indexOfMin].getTailLength() > a[j].getTailLength()){
-
                     indexOfMin = j;
                 }
             }
@@ -40,14 +30,13 @@ public class Dog implements Ownership {
             a[i] = temp;
         }
     }
-    @Override
     public String toString() {
         return "Dog{" +
                 "name='" + name + '\'' +
                 ", breed='" + breed + '\'' +
                 ", age=" + age +
                 ", weight=" + weight +
-                ", owner=" + owner.getName() +
+                ", owner=" + (owner == null ? "null" : owner.getName()) +
                 '}';
     }
     public int increaseAge(int a){
@@ -77,7 +66,6 @@ public class Dog implements Ownership {
             else if(!doubleName && name.charAt(i) == ' '){
                 tempName[i + 1] = Character.toUpperCase(tempName[i + 1]);
             }
-
         }
         if (doubleName){
             System.out.println("Dubbelnamn = sant!!");
@@ -91,7 +79,6 @@ public class Dog implements Ownership {
         name = String.valueOf(tempName);
         return name;
     }
-
     public String getBreed() {
         breed = breed.toLowerCase();
         char[] charArray = breed.toCharArray();
@@ -114,7 +101,6 @@ public class Dog implements Ownership {
     public int getWeight() {
         return weight;
     }
-
     public double getTailLength() {
         boolean isDachshund = switch (getBreed()) {
             case "Dachshund" -> true;
@@ -125,38 +111,24 @@ public class Dog implements Ownership {
         };
         if (!isDachshund) tailLength = age * (weight / 10f);
         else tailLength = DACHSHUND_TAIL;
-
         return tailLength;
     }
-    @Override public boolean setOwner(Owner owner){
-        Owner temp;
+    public boolean setOwner(Owner owner){
         if(this.owner != null){
             if(owner == null) {
                 this.owner.removeDog(this);
                 this.owner = null;
                 return true;
             }
-            else return false;
-        } else if (owner.getDogs().contains(this)) {
             return false;
+        } else if (owner.getDogs().contains(this)) {
+            this.owner = owner;
+            return true;
         }
         this.owner = owner;
         return this.owner.addDog(this);
     }
     public Owner getOwner(){
-        Owner clone = new Owner("Hej");
-        ownerToString = clone.toString();
-        clone = this.owner;
-        return clone;
-    }
-
-    private boolean getValidSuperclass(Object object){
-        Class <?> superClass = object.getClass().getSuperclass();
-        boolean A = (superClass == Dog.class);
-        boolean B = (superClass == Owner.class);
-        boolean C = (superClass.isAssignableFrom(Dog.class));
-        boolean D = (superClass.isAssignableFrom(Owner.class));
-        
-        return A | B | C | D;
+        return this.owner;
     }
 }

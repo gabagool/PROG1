@@ -30,7 +30,7 @@ public class DogCollection {
     }
 
     public boolean removeDog(String dogName) {
-        if (dogRegistry.size() == 0) {
+        if (dogRegistry.isEmpty()) {
             return false;
         } else if (!containsDog(dogName)) return false;
         else if (getDog(dogName).getOwner() != null) {
@@ -42,7 +42,7 @@ public class DogCollection {
     }
 
     public boolean removeDog(Dog dog) {
-        if (dogRegistry.size() == 0) {
+        if (dogRegistry.isEmpty()) {
             return false;
         } else if (!containsDog(dog)) return false;
         else if (!containsDog(dog.getName())) {

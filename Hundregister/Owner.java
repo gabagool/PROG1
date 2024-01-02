@@ -1,11 +1,10 @@
 // Björn Moderatho Winther bjmo4976
-
 import java.util.ArrayList;
-
 public class Owner implements Comparable<Owner>{
-    private class Ownership{
-
-    }
+    private final String ownerName;
+    private final String firstName;
+    private String lastName;
+    private ArrayList<Dog> dogsRegistered;
 
     public Owner(String name) {
         ownerName = name;
@@ -13,24 +12,14 @@ public class Owner implements Comparable<Owner>{
         firstName = getFirstName();
         dogsRegistered = new ArrayList<>();
     }
-    private String ownerName;
-    private String firstName;
-    private String lastName;
-    private ArrayList<Dog> dogsRegistered;
-    private Dog ownedDog;
-
-
     public int compareTo(Owner other) {
         if (ownerName.compareTo(other.getName()) > 0) return 1;
         if (ownerName.compareTo(other.getName()) < 0) return -1;
         else return 0;
     }
-
     public String getName() {
-        String fullName = getNormalizedName(firstName) + " " + getNormalizedName(lastName);
-        return fullName;
+        return getNormalizedName(firstName) + " " + getNormalizedName(lastName);
     }
-
     private String getNormalizedName(String name) {
         boolean doubleName = doubleNameCheck(name);
         name = name.toLowerCase();
@@ -50,7 +39,6 @@ public class Owner implements Comparable<Owner>{
         name = String.valueOf(charArray);
         return name;
     }
-
     private String getFirstName() {
         String firstName = ownerName;
         for (int i = 0; i < firstName.length(); i++) {
@@ -60,7 +48,6 @@ public class Owner implements Comparable<Owner>{
         }
         return firstName;
     }
-
     private String getLastName() {
         String lastName = ownerName;
         for (int i = 0; i < lastName.length(); i++) {
@@ -70,7 +57,6 @@ public class Owner implements Comparable<Owner>{
         }
         return lastName;
     }
-
     private boolean doubleNameCheck(String name) {
         boolean doubleName = false;
         for (int i = 0; i < name.length(); i++) {
@@ -80,18 +66,15 @@ public class Owner implements Comparable<Owner>{
         }
         return doubleName;
     }
-
     @Override
     public String toString() {
         return "Owner{" +
                 "ownerName='" + ownerName + '\'' +
                 ", dogsRegistered=" + dogsRegistered +
-+
                 '}';
     }
-
     public boolean addDog(Dog dog) {
-        Owner temp;
+        if(dog == null) return false;
         if (dog.getOwner() != null) {
             if(dog.getOwner() == this && !dogsRegistered.contains(dog)) {
                 this.dogsRegistered.add(dog);
@@ -114,19 +97,8 @@ public class Owner implements Comparable<Owner>{
         }
         return false;
     }
-
     public ArrayList<Dog> getDogs() {
         if(this.dogsRegistered.isEmpty()) return new ArrayList<>();
         return new ArrayList<>(dogsRegistered);
     }
-    private boolean getValidSuperclass(Object object){
-        Class <?> superClass = object.getClass().getSuperclass();
-        boolean A = (superClass == Dog.class);
-        boolean B = (superClass == Owner.class);
-        boolean C = (superClass.isAssignableFrom(Dog.class));
-        boolean D = (superClass.isAssignableFrom(Owner.class));
-
-        return A | B | C | D;
-    }
-
 }
